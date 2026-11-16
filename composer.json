@@ -12,7 +12,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "adminphp-cms/core": "dev-main",
+        "adminphp-cms/core": "^0.1",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0"
     },
@@ -97,11 +97,5 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/adminphp-cms/core"
-        }
-    ]
+    "prefer-stable": true
 }

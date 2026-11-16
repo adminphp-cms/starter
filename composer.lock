@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85273768a2d781ed4045a06b06f19c37",
+    "content-hash": "65a4bfb2f560e41e74616fea684b4b4c",
     "packages": [
         {
             "name": "adminphp-cms/core",
-            "version": "dev-main",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adminphp-cms/core.git",
@@ -37,7 +37,6 @@
                 "orchestra/testbench": "^10.0|^11.0",
                 "pestphp/pest": "^3.0|^4.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -52,25 +51,7 @@
                     "AdminPhp\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "AdminPhp\\Tests\\": "tests/",
-                    "Workbench\\App\\": "workbench/app/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "pest"
-                ],
-                "format": [
-                    "pint"
-                ],
-                "serve": [
-                    "Composer\\Config::disableProcessTimeout",
-                    "@php vendor/bin/testbench workbench:build --ansi",
-                    "@php vendor/bin/testbench serve --ansi"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -83,10 +64,11 @@
             ],
             "description": "A content management admin for Laravel, inspired by Twill",
             "support": {
-                "source": "https://github.com/adminphp-cms/core/tree/main",
-                "issues": "https://github.com/adminphp-cms/core/issues"
+                "issues": "https://github.com/adminphp-cms/core/issues",
+                "source": "https://github.com/adminphp-cms/core/tree/v0.1.0"
             },
-            "time": "2026-11-16T20:34:55+00:00"
+            "time": "2026-11-16T20:34:55+00:00",
+            "published-time": "2026-11-16T21:00:06+00:00"
         },
         {
             "name": "brick/math",
@@ -10616,9 +10598,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "adminphp-cms/core": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
