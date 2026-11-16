@@ -1,0 +1,103 @@
+# The starter with MariaDB and Redis, filled with the demo content on its first
+# start:
+#
+#   docker compose up --build
+#
+# Then open http://localhost:8000, and /admin with admin@example.com / password.
+# Set ADMINPHP_DEMO=false to start from an empty site.
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: .docker/Dockerfile
+  image: adminphp-starter
+  environment: &app-env
+    APP_NAME: AdminPHP
+    APP_ENV: local
+    APP_DEBUG: "true"
+    APP_URL: http://localhost:${APP_PORT:-8000}
+    APP_LOCALE: fr
+    APP_KEY: ${APP_KEY:-}
+    LOG_CHANNEL: stderr
+    DB_CONNECTION: mariadb
+    DB_HOST: mariadb
+    DB_PORT: 3306
+    DB_DATABASE: adminphp
+    DB_USERNAME: adminphp
+    DB_PASSWORD: adminphp
+    REDIS_HOST: redis
+    CACHE_STORE: redis
+    SESSION_DRIVER: redis
+    QUEUE_CONNECTION: redis
+  volumes:
+    - storage:/app/storage
+  depends_on:
+    mariadb:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
+services:
+  app:
+    <<: *app
+    environment:
+      <<: *app-env
+      CONTAINER_ROLE: app
+      ADMINPHP_DEMO: ${ADMINPHP_DEMO:-true}
+    ports:
+      - "${APP_PORT:-8000}:80"
+
+  # Makes the smaller copies of the uploaded images.
+  queue:
+    <<: *app
+    environment:
+      <<: *app-env
+      CONTAINER_ROLE: queue
+    depends_on:
+      app:
+        condition: service_healthy
+    # No web server here: the image's healthcheck on /up does not apply.
+    healthcheck:
+      disable: true
+
+  scheduler:
+    <<: *app
+    environment:
+      <<: *app-env
+      CONTAINER_ROLE: scheduler
+    depends_on:
+      app:
+        condition: service_healthy
+    # No web server here: the image's healthcheck on /up does not apply.
+    healthcheck:
+      disable: true
+
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_DATABASE: adminphp
+      MARIADB_USER: adminphp
+      MARIADB_PASSWORD: adminphp
+      MARIADB_ROOT_PASSWORD: adminphp
+    volumes:
+      - mariadb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  storage:
+  mariadb:
+  redis:

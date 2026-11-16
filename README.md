@@ -14,7 +14,7 @@ It comes with:
 
 ## Requirements
 
-PHP 8.3 or later with the `gd` and `exif` extensions, Composer, Node.js 20 or later.
+PHP 8.3 or later with the `gd` and `exif` extensions, Composer, Node.js 20 or later; or only Docker.
 
 ## Start a site
 
@@ -35,6 +35,37 @@ php artisan adminphp:user
 ```
 
 The site uses SQLite by default. Open `/` for the site and `/admin` for the admin.
+
+## Run it with Docker
+
+No PHP, Composer or Node on your computer? Docker runs the starter with MariaDB and Redis:
+
+```bash
+git clone https://github.com/adminphp-cms/starter.git my-site
+cd my-site
+docker compose up --build
+```
+
+Open http://localhost:8000. The first start fills the site with the demo content: sign in at `/admin` with
+`admin@example.com`, password `password`. Five containers run:
+
+| Service | Role |
+| --- | --- |
+| `app` | the site and the admin, served by FrankenPHP; it migrates the database on every start |
+| `queue` | the queue worker, which makes the smaller copies of the uploaded images |
+| `scheduler` | Laravel's scheduler |
+| `mariadb` | the database |
+| `redis` | cache, sessions and queue |
+
+- `ADMINPHP_DEMO=false docker compose up` starts from an empty site: create your first user with
+  `docker compose exec app php artisan adminphp:user`.
+- `APP_PORT=8080 docker compose up` serves the site on another port.
+- The database, Redis and the uploaded files live in Docker volumes: `docker compose down` keeps them,
+  `docker compose down -v` erases them.
+- The code is built into the image: run `docker compose up --build` after changing it.
+
+Without `APP_KEY`, the `app` container generates one and keeps it in the storage volume. For a real
+deployment, set `APP_KEY` and the passwords of `compose.yaml` yourself.
 
 ## See the demo
 
