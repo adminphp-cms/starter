@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/adminphp-cms/core.git",
-                "reference": "f821b6b86b5cfa8460fb5e85a366358923e6ae37"
+                "reference": "1e56dbb1c7ef99a589e8b1dd32c2b0bd7b2362ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adminphp-cms/core/zipball/f821b6b86b5cfa8460fb5e85a366358923e6ae37",
-                "reference": "f821b6b86b5cfa8460fb5e85a366358923e6ae37",
+                "url": "https://api.github.com/repos/adminphp-cms/core/zipball/1e56dbb1c7ef99a589e8b1dd32c2b0bd7b2362ef",
+                "reference": "1e56dbb1c7ef99a589e8b1dd32c2b0bd7b2362ef",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
                 "source": "https://github.com/adminphp-cms/core/tree/main",
                 "issues": "https://github.com/adminphp-cms/core/issues"
             },
-            "time": "2026-11-13T20:37:09+00:00"
+            "time": "2026-11-16T20:34:55+00:00"
         },
         {
             "name": "brick/math",

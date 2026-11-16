@@ -1,7 +1,7 @@
 <x-layouts.site>
     @if ($page)
         <h1 class="mb-8 text-4xl font-bold text-stone-900">{{ $page->title }}</h1>
-        <x-blocks :blocks="$page->blocks" class="max-w-3xl" />
+        <div class="space-y-8 max-w-3xl">{{ $page->renderBlocks() }}</div>
     @endif
 
     @if ($articles->isNotEmpty())
